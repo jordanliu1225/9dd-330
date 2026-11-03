@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9DD 3.30 計畫</title>
+<meta name="description" content="POE 3.30 Covens of Umbra 靈體投擲轉充能打擊(決鬥者/野蠻人)章節開荒流程 A1–A10">
+<style>
+:root{
+  --bg:#0e0c09; --panel:#17130e; --panel2:#1f1912; --line:#2e2517;
+  --gold:#c9a35c; --gold-dim:#8a7247; --text:#d9cfbd; --dim:#93876f;
+  --red:#d0705e; --green:#8fb376; --blue:#7aa7cc; --purple:#ad8bd6; --amber:#e0b96a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.65;font-size:16px}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 80px}
+header.hero{padding:38px 0 18px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.hero h1{font-size:1.9rem;color:var(--gold);letter-spacing:.06em}
+.hero .sub{color:var(--dim);margin-top:6px;font-size:.95rem}
+.hero .sub b{color:var(--amber);font-weight:600}
+.progressbar{margin-top:16px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;height:18px;overflow:hidden;position:relative}
+.progressbar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#6d5426,var(--gold));transition:width .3s}
+.progressbar>span{position:absolute;inset:0;text-align:center;font-size:.75rem;line-height:18px;color:#fff;text-shadow:0 1px 2px #000}
+.hero .tools{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+button.ghost{background:none;border:1px solid var(--line);color:var(--dim);border-radius:6px;padding:4px 12px;font-size:.85rem;cursor:pointer;font-family:inherit}
+button.ghost:hover{border-color:var(--gold-dim);color:var(--gold)}
+nav.top{position:sticky;top:0;z-index:50;background:rgba(14,12,9,.96);backdrop-filter:blur(4px);border-bottom:1px solid var(--line);margin:0 -16px;padding:0 16px}
+nav.top .in{display:flex;gap:4px;overflow-x:auto;padding:8px 0;scrollbar-width:none}
+nav.top .in::-webkit-scrollbar{display:none}
+nav.top a{color:var(--dim);text-decoration:none;font-size:.88rem;padding:4px 10px;border-radius:6px;white-space:nowrap;border:1px solid transparent}
+nav.top a:hover{color:var(--gold);border-color:var(--line)}
+section{margin-top:34px;scroll-margin-top:64px}
+h2{color:var(--gold);font-size:1.3rem;border-left:4px solid var(--gold-dim);padding-left:12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h2 small{color:var(--dim);font-size:.85rem;font-weight:400}
+h2 .chip{margin-left:auto;font-size:.78rem;color:var(--dim);border:1px solid var(--line);border-radius:20px;padding:1px 10px;font-weight:400}
+h2 .chip.full{color:var(--green);border-color:var(--green)}
+h3{color:var(--amber);font-size:1.02rem;margin:22px 0 8px}
+p.note{color:var(--dim);font-size:.9rem;margin:8px 0}
+ul.steps{list-style:none;margin-top:14px}
+ul.steps li{border:1px solid var(--line);border-radius:8px;background:var(--panel);margin-bottom:8px;padding:10px 14px}
+li.step label{display:flex;gap:12px;cursor:pointer;align-items:flex-start}
+li.step input{margin-top:5px;accent-color:var(--gold);width:16px;height:16px;flex-shrink:0}
+li.step.done{opacity:.45}
+li.step.done span.tx{text-decoration:line-through}
+li.gem{background:#1c160c;border-color:#4a3a1c;font-size:.93rem}
+li.gem::before{content:"💎 ";color:var(--amber)}
+li.gem b{color:var(--amber);font-weight:600}
+li.tip{background:transparent;border-style:dashed;color:var(--dim);font-size:.9rem}
+li.tip::before{content:"💡 "}
+.bd{display:inline-block;font-size:.75rem;border-radius:4px;padding:0 6px;margin-right:4px;font-weight:600;vertical-align:1px}
+.bd.t{background:#16222d;color:var(--blue);border:1px solid #2b4356}
+.bd.lab{background:#221830;color:var(--purple);border:1px solid #443059}
+.bs{color:var(--red);font-weight:600;font-style:normal}
+.it{color:var(--green);font-weight:600;font-style:normal}
+.rl{color:var(--dim)}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel2);color:var(--amber);font-weight:600;white-space:nowrap}
+td{background:var(--panel)}
+.tablebox{overflow-x:auto}
+code{font-family:Consolas,monospace;background:#241d12;color:#e8d5a8;padding:2px 7px;border-radius:4px;font-size:.86rem;word-break:break-all}
+.rxrow{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+button.copy{background:var(--panel2);border:1px solid var(--gold-dim);color:var(--gold);border-radius:5px;padding:2px 10px;font-size:.78rem;cursor:pointer;font-family:inherit;flex-shrink:0}
+button.copy:hover{background:#2a2114}
+.box{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:16px 18px;margin-top:12px}
+.box.warn{border-color:#5a4526;background:#1c160c}
+.pobchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pobchips span{border:1px solid var(--gold-dim);color:var(--amber);border-radius:20px;padding:3px 14px;font-size:.88rem;background:var(--panel2)}
+textarea.pob{width:100%;height:120px;background:#241d12;color:#e8d5a8;border:1px solid var(--line);border-radius:8px;font-family:Consolas,monospace;font-size:.72rem;padding:10px;resize:vertical;word-break:break-all}
+a.btnlink{display:inline-block;border:1px solid var(--gold-dim);color:var(--gold);border-radius:6px;padding:6px 16px;text-decoration:none;font-size:.9rem;margin:8px 8px 0 0;background:var(--panel2)}
+a.btnlink:hover{background:#2a2114}
+ol.plain{padding-left:22px}
+ol.plain li{margin-bottom:6px}
+details{margin-top:12px}
+summary{cursor:pointer;color:var(--gold);font-size:.95rem}
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:18px;color:var(--dim);font-size:.85rem}
+footer a{color:var(--gold-dim)}
+a{color:var(--gold)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a1408;padding:6px 18px;border-radius:20px;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .25s;z-index:99}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>9DD 3.30 計畫</h1>
+  <div class="sub">3.30 <b>Covens of Umbra</b>&ensp;|&ensp;靈體投擲 → <b>充能打擊</b>&ensp;|&ensp;決鬥者・處刑者(Slayer)&ensp;|&ensp;A1–A10 章節開荒流程</div>
+  <div class="sub">開服:<b>11/14(六)03:00</b> 台灣時間(11/13 11:00 PST)&ensp;|&ensp;參考時程:A1–A5 約 2 小時 11 分、全程約 2 小時 18 分(3.29 開荒表 0 死實測)</div>
+  <div class="progressbar"><i id="pbar"></i><span id="ptext">0 / 0</span></div>
+  <div class="tools">
+    <button class="ghost" id="reset">清空進度</button>
+    <span style="color:var(--dim);font-size:.8rem">進度存在這台裝置的瀏覽器裡,勾了會自動記住</span>
+  </div>
+</header>
+
+<nav class="top"><div class="in">
+  <a href="#v330">3.30</a>
+  <a href="#prep">準備</a>
+  <a href="#a1">A1</a><a href="#a2">A2</a><a href="#a3">A3</a><a href="#a4">A4</a><a href="#a5">A5</a>
+  <a href="#a6">A6</a><a href="#a7">A7</a><a href="#a8">A8</a><a href="#a9">A9</a><a href="#a10">A10</a>
+  <a href="#pob">天賦</a>
+  <a href="#src">來源</a>
+</div></nav>
+
+<!-- ============ 3.30 ============ -->
+<section id="v330">
+  <h2>3.30 Covens of Umbra <small>版本狀態(更新於 11/03)</small></h2>
+
+  <div class="tablebox"><table>
+    <tr><th>事件</th><th>台灣時間</th><th>備註</th></tr>
+    <tr><td>ExileCon 公開 3.30 全部內容</td><td>11/07(五)04:30 開播、05:00 主題演講</td><td>11/06 12:30 PM PST,<a href="https://www.twitch.tv/pathofexile" target="_blank" rel="noopener">twitch.tv/pathofexile</a></td></tr>
+    <tr><td>3.29 Curse of the Allflame 結束</td><td>11/10(二)05:00</td><td>11/09 1 PM PST</td></tr>
+    <tr><td><b style="color:var(--amber)">3.30 開服</b></td><td><b style="color:var(--amber)">11/14(六)03:00</b></td><td>11/13 11:00 AM PST,PC / 主機同步</td></tr>
+  </table></div>
+
+  <div class="box warn">
+    <b style="color:var(--amber)">目前只公布了名字跟日期,patch note 還沒出</b>
+    <p class="note" style="margin-top:6px">GGG 到 11/03 為止只放了「The Covens Gather」預告片,沒有任何機制、平衡、技能改動資訊。下面這幾項要等 ExileCon(11/07)跟 patch note 出來後再逐條對照,有變動我再改這頁:</p>
+    <ol class="plain" style="margin-top:8px">
+      <li><b>充能打擊 / 殘暴 / 三位一體 / 虛空震波</b>的數值與機制 —— 3.29 完全沒動過,先假設 3.30 也沒動。</li>
+      <li><b>處刑者昇華</b>(衝擊 / 神話災難 / 偷取不中斷)—— 若有改,三次迷宮推薦要換。</li>
+      <li><b>章節任務 / 試煉位置</b> —— 路線文章基礎是 3.25,3.26~3.29 都沒改章節,3.30 若動到章節會直接影響 A1–A10 步驟。</li>
+      <li><b>POB 天賦樹</b> —— 3.30 天賦樹更新後,下方的 POB 代碼要重新匯入、重新貼。</li>
+      <li>傳言 3.30 是「終局大改」(Mirage 回歸、輿圖重做),<b>不影響章節開荒</b>,但姊妹頁的輿圖策略要等 patch note 才能定稿。</li>
+    </ol>
+  </div>
+  <p class="note">洞色 Regex、技能演進順序、靈投→充能的切換時機,這些跟版本無關,照 3.29 的表走就對了。</p>
+</section>
+
+<!-- ============ 準備 ============ -->
+<section id="prep">
+  <h2>開荒前必讀</h2>
+
+  <div class="box warn">
+    <b style="color:var(--amber)">版本注意事項(開荒表)</b>
+    <ol class="plain" style="margin-top:8px">
+      <li><b>猛攻輔助、點傷法杖/權杖、活潑水+1 召喚頭</b>已在 3.21 移除,舊攻略看到這三個直接無視。</li>
+      <li>A3 <b>月影神殿</b>拿到派蒂的「閃電點傷」工藝後,回城用<b>蛻變石</b>把工藝打上武器,跟以前點法傷權杖幾乎沒差。</li>
+      <li>3.25 起斧圈的<b>擊殺猛攻(斧刃宗師)</b>移到天賦盤右下角,要多花過路點,但還是要點,很強。</li>
+      <li>拓荒時掉落的連線/洞色不一定跟表一樣,<b>隨機應變</b>;大概率是綠洞,就先串附加冰冷傷害/機率中毒。</li>
+    </ol>
+  </div>
+
+  <h3>商店搜尋 Regex(貼到商店搜尋框)</h3>
+  <div class="tablebox"><table>
+    <tr><th>用途</th><th>Regex</th></tr>
+    <tr><td>第一章洞色(近戰)</td><td><div class="rxrow"><code>R-G|G-.-G|R-R|R-G|G-R-B|G-R-R|nn</code><button class="copy">複製</button></div></td></tr>
+    <tr><td>第一章洞色(英文版・Lv23 前)</td><td><div class="rxrow"><code>b-g|g-b|b-b|g-g|b-.-b|g-.-g|nn|rune</code><button class="copy">複製</button></div></td></tr>
+    <tr><td>近戰紅色通用</td><td><div class="rxrow"><code>r-r-r|r-r-g|r-g-r|g-r-r|g-g-r|g-r-g|r-g-g|nn</code><button class="copy">複製</button></div></td></tr>
+    <tr><td>Lv24+ 找四連/四洞</td><td><div class="rxrow"><code>.-.-.|([rgbw][ -.]){3}</code><button class="copy">複製</button></div></td></tr>
+    <tr><td>三連(綠/紅)+ 跑速鞋<br><small style="color:var(--dim)">開荒表:此流程用這個</small></td><td><div class="rxrow"><code>[gr]-[gr]-[gr]|Runn|rint</code><button class="copy">複製</button></div></td></tr>
+  </table></div>
+
+  <h3>技能演進總覽</h3>
+  <div class="tablebox"><table>
+    <tr><th>時機</th><th>連結</th></tr>
+    <tr><td>A1 開局</td><td>靈體投擲 – 機率流血 – 機率中毒(買到齊射也串)</td></tr>
+    <tr><td>A1 醫療箱後</td><td>補上 霜漣之瞬/戰爭之旗/鋼筋鐵骨</td></tr>
+    <tr><td>A1 監獄傳點後</td><td>靈體投擲 – 癱瘓 – 機率流血</td></tr>
+    <tr><td>A1 典獄長後</td><td>快速攻擊 – 躍擊(位移)</td></tr>
+    <tr><td>A1 尾(Lv12+)</td><td><b style="color:var(--amber)">充能打擊</b> – 殘暴 – 附加火焰傷害(冰/電皆可)+ 威嚇戰吼</td></tr>
+    <tr><td>A2 罪孽之殿後</td><td>回城買 灰燼之捷、純淨之捷</td></tr>
+    <tr><td>A2 織網者(Lv18+)</td><td>充能打擊 – 殘暴 – 震波(雙手錘)/近身戰(雙手斧) – 盛怒;天賦點到「擊中獲得盛怒」後,盛怒改成<b>護體</b></td></tr>
+    <tr><td>A2</td><td>快速施放 + 烈焰衝刺(習慣就串一起)</td></tr>
+    <tr><td>成型(POB 6L)</td><td>充能打擊 – 殘暴 – 近戰物理傷害 – 護體 – 三位一體 – 虛空震波(詳見<a href="#pob">天賦/POB</a>)</td></tr>
+  </table></div>
+  <p class="note">威嚇戰吼用法:每打第三下之前先吼,殘暴的雙倍傷害可以吃滿整段閃電期間。</p>
+
+  <h3>三次迷宮・昇華推薦(開荒表)</h3>
+  <div class="tablebox"><table>
+    <tr><th>迷宮</th><th>處刑者</th><th>暴徒</th><th>勇士</th></tr>
+    <tr><td>第一次(A3)</td><td>衝擊</td><td>血肉之章</td><td>不可質疑</td></tr>
+    <tr><td>第二次(A7 後・殘酷)</td><td>神話災難</td><td>戰吼獲得盛怒</td><td>移動速度不低於一般</td></tr>
+    <tr><td>第三次(A10・無情)</td><td>偷取不中斷</td><td>盛怒</td><td>8% 元素承受為護甲</td></tr>
+  </table></div>
+
+  <h3>昇華試煉一覽(全 12 個都在路線裡)</h3>
+  <div class="tablebox"><table>
+    <tr><th>一般</th><td>① 禁靈之獄下層(A1)&ensp;② 罪孽之殿二層(A2)&ensp;③ 靜謐陵墓一層(A2)&ensp;④ 火葬場(A3)&ensp;⑤ 黑石陵寢(A3)&ensp;⑥ 皇家花園(A3)</td></tr>
+    <tr><th>殘酷</th><td>⑦ 禁靈之獄(A6)&ensp;⑧ 靜謐陵墓(A7)&ensp;⑨ 罪孽之殿二層(A7)</td></tr>
+    <tr><th>無情</th><td>⑩ 大浴場(A8)&ensp;⑪ 隧道遺跡(A9)&ensp;⑫ 葬骨禮堂(A10)</td></tr>
+  </table></div>
+</section>
+
+<!-- ============ A1 ============ -->
+<section id="a1">
+  <h2>第一章 <small>獅眼守望</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a1-1"><label><input type="checkbox"><span class="tx">爬上岸打死<em class="bs">西拉客</em> → 進入主城「獅眼守望」,找塔格拉完成任務「大門口的敵人」</span></label></li>
+    <li class="gem">開局:<b>靈體投擲 – 機率流血 – 機率中毒</b>(買到齊射也串上)</li>
+    <li class="step" data-k="a1-2"><label><input type="checkbox"><span class="tx">進入「暮光海灘」→ 找到傳送點</span></label></li>
+    <li class="step" data-k="a1-3"><label><input type="checkbox"><span class="tx">進入「炙熱鹽沼」→ 打破<em class="it">三個鳥蛋</em> → 進入「海潮地穴」找到傳送點</span></label></li>
+    <li class="step" data-k="a1-4"><label><input type="checkbox"><span class="tx">傳送回「暮光海灘」→ 進入「海潮孤島」→ 殺死<em class="bs">酷寒之使</em>,拿到<em class="it">醫療箱</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a1-5"><label><input type="checkbox"><span class="tx">回到獅眼守望,和驚嘆號 NPC 說話提交任務(奈莎會給<em class="it">快跑水</em>)</span></label></li>
+    <li class="gem">拿到醫療箱回城後補上:<b>霜漣之瞬/戰爭之旗/鋼筋鐵骨</b></li>
+    <li class="step" data-k="a1-6"><label><input type="checkbox"><span class="tx">傳送到「海潮地穴」→ 走到地圖中間的橋前<b>開一個傳送門</b>(待會回來打螃蟹用)</span></label></li>
+    <li class="step" data-k="a1-7"><label><input type="checkbox"><span class="tx">進入「沉寂海崖」找到傳送點 → 進入「碎岩山坡」</span></label></li>
+    <li class="step" data-k="a1-8"><label><input type="checkbox"><span class="tx">進入「禁靈之獄下層」→ 找到傳送點踩下去 → 傳送回獅眼守望</span></label></li>
+    <li class="gem">踩到監獄傳點回城後換:<b>靈體投擲 – 癱瘓 – 機率流血</b></li>
+    <li class="step" data-k="a1-9"><label><input type="checkbox"><span class="tx">走剛剛開的傳送門回「海潮地穴」→ 走另一個方向找到「水聲之淵」→ 殺死<em class="bs">深淵巨蟹</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a1-10"><label><input type="checkbox"><span class="tx">回到獅眼守望,和驚嘆號 NPC 說話提交任務</span></label></li>
+    <li class="step" data-k="a1-11"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉①</b>走傳送點回「禁靈之獄下層」→ 完成試煉迷宮①</span></label></li>
+    <li class="step" data-k="a1-12"><label><input type="checkbox"><span class="tx">進入「禁靈之獄上層」→ 殺死<em class="bs">典獄長</em> → <span class="rl">登出重登</span> → 回城和驚嘆號 NPC 提交任務</span></label></li>
+    <li class="gem">典獄長後裝位移:<b>快速攻擊 – 躍擊</b></li>
+    <li class="step" data-k="a1-13"><label><input type="checkbox"><span class="tx">走傳送點到「監獄大門」前進 → 進入「魅影船墓」找到傳送點</span></label></li>
+    <li class="step" data-k="a1-14"><label><input type="checkbox"><span class="tx">找到並進入「魅影船墓洞穴」→ 點燃<em class="it">不滅之火</em>(不用打王) → 走旁邊出口出去 → 殺死<em class="bs">費爾船長</em></span></label></li>
+    <li class="step" data-k="a1-15"><label><input type="checkbox"><span class="tx">進入「怨忿之窟」找到傳送點 → 走傳送點回獅眼守望,和驚嘆號 NPC 提交任務</span></label></li>
+    <li class="step" data-k="a1-16"><label><input type="checkbox"><span class="tx">走傳送點回「怨忿之窟」→ 進入「怨忿之窟深處」→ 擊殺<em class="bs">海妖莫薇兒</em> → 第一章結束</span></label></li>
+    <li class="gem">Lv12 起主技轉 <b>充能打擊 – 殘暴 – 附加火焰傷害</b>(冰/電皆可)+ 威嚇戰吼:每打第三下前先吼,殘暴雙倍傷害吃滿整段閃電期間(打海妖繼續用靈投也行)</li>
+  </ul>
+</section>
+
+<!-- ============ A2 ============ -->
+<section id="a2">
+  <h2>第二章 <small>森林營地</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a2-1"><label><input type="checkbox"><span class="tx">進入「南部森林」→ 進入主城「森林營地」</span></label></li>
+    <li class="step" data-k="a2-2"><label><input type="checkbox"><span class="tx">走右邊出主城 → 「前哨原野」:找到<b>獸穴,在門口開傳送門</b>,先不進去,順著地上道路繼續走</span></label></li>
+    <li class="step" data-k="a2-3"><label><input type="checkbox"><span class="tx">進入「危機岔路」→ 順著地上道路找到傳送點 → 傳送回森林營地,走傳送門進「獸穴」</span></label></li>
+    <li class="step" data-k="a2-4"><label><input type="checkbox"><span class="tx">殺死<em class="bs">白色巨獸</em> → <span class="rl">登出重登</span> → 回營地交任務、順便換跑水</span></label></li>
+    <li class="step" data-k="a2-5"><label><input type="checkbox"><span class="tx">傳送到「危機岔路」往左上走 → 「罪孽之殿第一層」→「第二層」</span></label></li>
+    <li class="step" data-k="a2-6"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉②</b>完成試煉迷宮②(罪孽之殿第二層) → 殺掉<em class="bs">悼靈者費德利塔斯</em>,取得<em class="it">邪影寶石</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a2-7"><label><input type="checkbox"><span class="tx">回森林營地,和驚嘆號 NPC 說話提交任務</span></label></li>
+    <li class="gem">回城買 <b>灰燼之捷、純淨之捷</b></li>
+    <li class="step" data-k="a2-8"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉③</b>傳送到「危機岔路」往下走 → 「靜謐陵墓第一層」:完成試煉迷宮③</span></label></li>
+    <li class="step" data-k="a2-9"><label><input type="checkbox"><span class="tx">往下走「靜謐陵墓第二層」→ 找到祭壇並調查 → 取得<em class="it">黃金之手</em>(+1 天賦點) → <span class="rl">登出重登</span>回營地</span></label></li>
+    <li class="step" data-k="a2-10"><label><input type="checkbox"><span class="tx">走左邊出主城 → 「河道」:順著道路找到傳送點 → 繼續走進「西部密林」:找到傳送點</span></label></li>
+    <li class="step" data-k="a2-11"><label><input type="checkbox"><span class="tx">找到「織網者巢穴」→ 殺死<em class="bs">巨蛛之母</em>,獲得<em class="it">馬雷葛蘿的尖刺</em> → <span class="rl">登出重登</span>回營地</span></label></li>
+    <li class="gem">Lv18 起:<b>充能打擊 – 殘暴 – 震波(雙手錘)/近身戰(雙手斧) – 盛怒</b>;天賦點到「擊中獲得盛怒」後,盛怒改成<b>護體</b></li>
+    <li class="gem">回城拿 <b>快速施放 + 烈焰衝刺</b>(習慣就串一起)</li>
+    <li class="tip">洞色不對就先塞附加冰冷/閃電傷害;缺敏捷跟商人買翠玉護身符</li>
+    <li class="step" data-k="a2-12"><label><input type="checkbox"><span class="tx">傳送到「危機岔路」往右上走 → 「河畔斷橋」:處理<em class="bs">克雷頓</em>(開荒推薦「幫」= +8% 移速,之後可反悔) → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a2-13"><label><input type="checkbox"><span class="tx">傳送到「河道」往左上走 → 進入「濕地」:找到傳送點 → 找到並處理<em class="bs">歐克</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a2-14"><label><input type="checkbox"><span class="tx">傳送到「西部密林」:找到並處理<em class="bs">阿莉亞</em></span></label></li>
+    <li class="tip">盜賊獎勵:全殺 +1 天賦點/幫克雷頓 +8% 移速/幫歐克 +40 生命/幫阿莉亞 +15% 全抗。怕忘記誰處理過,可以像原文作者一樣留到最後三個一起處理。<b>本流派 POB 最終選全殺(+1 點)</b>,開荒先幫克雷頓,之後用悔改書反悔即可</li>
+    <li class="step" data-k="a2-15"><label><input type="checkbox"><span class="tx">回到道路上順著路走 → 殺死<em class="bs">阿特力隊長</em>取得<em class="it">奇術徽章</em>,並調查牆壁上的托麥迪克之印 → <span class="rl">登出重登</span> → 回營地和驚嘆號 NPC 提交任務</span></label></li>
+    <li class="step" data-k="a2-16"><label><input type="checkbox"><span class="tx">傳送到「濕地」調查樹根 → 前往「瓦爾廢墟」(推球/古代封印那段<b>走 S 型</b>就不會撞死路) → 進入「北部密林」踩傳送點</span></label></li>
+    <li class="step" data-k="a2-17"><label><input type="checkbox"><span class="tx">繼續走「瀑布洞穴」(取得工藝「移動速度」) → 「古金字塔」走到頂端 → 擊殺<em class="bs">瓦爾全能</em> → 打完直接重登回城,傳送到第三章</span></label></li>
+  </ul>
+</section>
+
+<!-- ============ A3 ============ -->
+<section id="a3">
+  <h2>第三章 <small>薩恩營地</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a3-1"><label><input type="checkbox"><span class="tx">進入「薩恩城廢墟」→ 殺死<em class="bs">軍衛隊長</em>救出卡爾麗莎 → <b>等她站起來,一定要跟她說話</b> → 進入主城「薩恩營地」</span></label></li>
+    <li class="step" data-k="a3-2"><label><input type="checkbox"><span class="tx">往上走出主城 → 「貧民窟」→ 找到並進入「火葬場」</span></label></li>
+    <li class="step" data-k="a3-3"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉④</b>完成試煉迷宮④(火葬場) → 打倒<em class="bs">派蒂</em>,獲得<em class="it">托爾曼的手鐲</em>;取得工藝「防禦」 → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a3-4"><label><input type="checkbox"><span class="tx">回營地與卡爾麗莎對話,獲得<em class="it">下水道鑰匙</em>;和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="step" data-k="a3-5"><label><input type="checkbox"><span class="tx">往上出城到「貧民窟」→ 用鑰匙進入「下水道迷宮」:找到傳送點,取得<em class="it">三個半身像</em></span></label></li>
+    <li class="step" data-k="a3-6"><label><input type="checkbox"><span class="tx">進入「市集地帶」:找到傳送點 → 傳送點旁邊的入口進入「黑石陵寢」</span></label></li>
+    <li class="step" data-k="a3-7"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉⑤</b>完成試煉迷宮⑤(黑石陵寢);取得工藝「元素攻擊」 → <span class="rl">登出重登</span> → 回營地和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="step" data-k="a3-8"><label><input type="checkbox"><span class="tx">傳送到「市集地帶」→ 進入「激戰廣場」:往左上找到傳送點 → 往左下撿<em class="it">絲帶線軸</em> → 往左上進入「不朽海港」取得<em class="it">托麥迪克亞硫酸</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a3-9"><label><input type="checkbox"><span class="tx">傳送到「激戰廣場」往右上 → 「日耀神殿第一層」→「第二層」:與達拉夫人對話取得<em class="it">煉獄之粉</em> → 進入「永恆實驗室」:取得工藝「火傷」 → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a3-10"><label><input type="checkbox"><span class="tx">傳送到「下水道迷宮」→ 用亞硫酸移除不朽屏障;取得工藝「物傷」 → 進入「烏旗守衛兵營」:找到傳送點 → 往上走殺死<em class="bs">格拉維奇將軍</em>(趕時間可跳過不打)</span></label></li>
+    <li class="step" data-k="a3-11"><label><input type="checkbox"><span class="tx">進入「月影神殿第一層」→「第二層」:擊退<em class="bs">派蒂</em>獲得<em class="it">神塔之鑰</em>;取得工藝「電傷」 → <span class="rl">登出重登</span> → 回營地和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="gem">這裡拿到派蒂的「閃電點傷」工藝 → 回城用<b>蛻變石</b>打在武器上(≈以前的點法傷權杖)</li>
+    <li class="step" data-k="a3-12"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉⑥</b>傳送到「烏旗守衛兵營」往右上 → 「皇家花園」:找到傳送點 → 往上走完成試煉迷宮⑥;取得工藝「全能力」 → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a3-13"><label><input type="checkbox"><span class="tx"><b class="bd lab">迷宮 I</b>①~⑥集齊 → 主城上方<b>綠色的門</b>進第一次帝王迷宮,取得昇華職業!推薦:處刑者=<b>衝擊</b>/暴徒=血肉之章/勇士=不可質疑</span></label></li>
+    <li class="step" data-k="a3-14"><label><input type="checkbox"><span class="tx">傳送到「皇家花園」→ 進入「圖書館」:找到傳送點 → 進入「檔案室」:找<em class="it">四張黃金書頁</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a3-15"><label><input type="checkbox"><span class="tx">傳送到「圖書館」→ 和薩歐賽對話回報任務(之後他就賣全部的寶石)</span></label></li>
+    <li class="step" data-k="a3-16"><label><input type="checkbox"><span class="tx">傳送到「皇家花園」→ 「神權之塔」→「上層」→「塔頂」:擊殺<em class="bs">聖宗領導人神主</em> → 進入「水道遺跡」→ 第三章結束</span></label></li>
+  </ul>
+</section>
+
+<!-- ============ A4 ============ -->
+<section id="a4">
+  <h2>第四章 <small>統治者之殿</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a4-1"><label><input type="checkbox"><span class="tx">從水道遺跡進入主城「統治者之殿」→ 往下走出城 → 「乾涸湖岸」:擊殺<em class="bs">帝王福爾</em>,取得<em class="it">迪虛瑞特的紅旗</em>;取得工藝「攻擊/施放/戰吼速度」 → <span class="rl">登出重登</span></span></label></li>
+    <li class="tip">開荒表:這章開始洞色連線不夠不用強求,之後再補</li>
+    <li class="step" data-k="a4-2"><label><input type="checkbox"><span class="tx">回統治者之殿往左上 → 「漆黑礦坑第一層」:取得工藝「插槽顏色」</span></label></li>
+    <li class="step" data-k="a4-3"><label><input type="checkbox"><span class="tx">「漆黑礦坑第二層」:解支線「釋放遠古靈魂」(救人) → 進入「水晶礦脈」:取得工藝「冰冷傷害」→ 踩傳送點回城,和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="step" data-k="a4-4"><label><input type="checkbox"><span class="tx">傳送到「水晶礦脈」→ 「德索瑞的幻境」→「大競技場」:取得工藝「插槽」 → 「劍刃之環」:擊殺<em class="bs">德拉索</em>,取得<em class="it">慾望之眼</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a4-5"><label><input type="checkbox"><span class="tx">傳送到「水晶礦脈」→ 「岡姆的幻境」→「岡姆的堡壘」:取得工藝「連線」 → 「熔岩之環」:擊殺<em class="bs">國王岡姆</em>,取得<em class="it">憤怒之眼</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a4-6"><label><input type="checkbox"><span class="tx">傳送到「水晶礦脈」→ 與達拉夫人對話 → 「巨獸之腹第一層」→「第二層」→「獸腹」:擊殺<em class="bs">派蒂</em>,和派蒂說話;取得工藝「元素抗性」</span></label></li>
+    <li class="step" data-k="a4-7"><label><input type="checkbox"><span class="tx">進入「育靈之室」:連殺<em class="bs">禁忌祭者德瑞</em>(瑪拉凱的肺)、<em class="bs">審判者馬雷葛蘿</em>(心)、<em class="bs">烏姆布拉的薛朗</em>(臟器) → 再和派蒂說話</span></label></li>
+    <li class="step" data-k="a4-8"><label><input type="checkbox"><span class="tx">進入「黑靈核心」:擊殺<em class="bs">夢魘瑪拉凱</em> → <span class="rl">登出重登</span> → 回統治者之殿和達拉夫人說話</span></label></li>
+    <li class="step" data-k="a4-9"><label><input type="checkbox"><span class="tx">往右上走 → 「沿岸陡坡」:取得工藝「異常狀態/暈眩/詛咒避免」 → 順著路找到裝置<b>啟動把手</b> → 進入奧瑞亞傳送門 → 第四章結束</span></label></li>
+  </ul>
+</section>
+
+<!-- ============ A5 ============ -->
+<section id="a5">
+  <h2>第五章 <small>監守高塔</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a5-1"><label><input type="checkbox"><span class="tx">進入「奴役監牢」:擊殺<em class="bs">監工庫爾</em> → 進入主城「監守高塔」,和 NPC 說話完成「重返奧瑞亞」</span></label></li>
+    <li class="step" data-k="a5-2"><label><input type="checkbox"><span class="tx">進入「鎮壓地帶」:往左上走取得<em class="it">探測棒</em> → 往右上走擊殺<em class="bs">判官卡斯蒂克斯</em>,取得<em class="it">熱情之眼</em></span></label></li>
+    <li class="step" data-k="a5-3"><label><input type="checkbox"><span class="tx">進入「奧瑞亞大廣場」往右上 → 「神聖大教堂」:<b>順時針</b>方向跑 → 進入「無罪之室」:取得傳送點</span></label></li>
+    <li class="step" data-k="a5-4"><label><input type="checkbox"><span class="tx">往左上走到底後<b>逆時針</b>走 → 進入「潔白聖殿」:擊殺<em class="bs">聖宗、善</em></span></label></li>
+    <li class="step" data-k="a5-5"><label><input type="checkbox"><span class="tx">回「無罪之室」→ 「焚燒大教堂」:<b>逆時鐘</b>走 → 進入「大廣場廢墟」:往左上找到傳送點</span></label></li>
+    <li class="step" data-k="a5-6"><label><input type="checkbox"><span class="tx">進入「葬骨禮堂」:取得<em class="it">純淨之印</em>;取得工藝 → <span class="rl">登出重登</span>回監守高塔</span></label></li>
+    <li class="step" data-k="a5-7"><label><input type="checkbox"><span class="tx">傳送到「大廣場廢墟」往左下 → 找到並擊殺<em class="bs">烏圖拉</em> → 左下進入「聖物間」:取得<em class="it">齊圖克瑪哈之牙、瓦拉庫之顎、悉妮蔻拉之髮</em>(奇塔弗的折磨);取得工藝 → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a5-8"><label><input type="checkbox"><span class="tx">傳送到「大廣場廢墟」往左上角 → 「聖堂屋頂」→「聖堂之巔」:打<em class="bs">奇塔弗</em>(劇情被擊殺,最大抗性 −30%) → 和莉莉說話,傳送到獅眼守望 → 第五章結束</span></label></li>
+    <li class="tip">開荒表實測到這裡約 2 小時 11 分(暴徒),當進度參考就好</li>
+  </ul>
+</section>
+
+<!-- ============ A6 ============ -->
+<section id="a6">
+  <h2>第六章 <small>獅眼守望・下半</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a6-1"><label><input type="checkbox"><span class="tx">從主城往左走 → 「絕望岩灘」:<b>殺死所有怪物</b> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a6-2"><label><input type="checkbox"><span class="tx">回獅眼守望,和<b>碼頭的莉莉</b>說話提交「貴族殞落」(之後莉莉販賣所有可買寶石)</span></label></li>
+    <li class="step" data-k="a6-3"><label><input type="checkbox"><span class="tx">往右走 → 「炙熱鹽沼」:擊殺<em class="bs">拜恥女王</em>,取得<em class="it">征服之眼</em> → 進入「卡魯堡壘」:擊殺<em class="bs">戰爭之父圖克瑪哈</em>;取得工藝</span></label></li>
+    <li class="step" data-k="a6-4"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉⑦</b>往上走 → 「破碎山脊」→「禁靈之獄」:完成殘酷試煉⑦;取得工藝</span></label></li>
+    <li class="step" data-k="a6-5"><label><input type="checkbox"><span class="tx">進入「禁靈之獄下層」→ 「薜朗監塔」:擊殺<em class="bs">薛朗</em> → 過「典獄長的房間」(取得工藝) → 「監獄大門」</span></label></li>
+    <li class="step" data-k="a6-6"><label><input type="checkbox"><span class="tx">進入「飲焰者的災變峽谷」:擊殺<em class="bs">艾貝拉斯</em>(火山羊王) → 進入「西部密林」沿著路走 → 「河道」:取得傳送點</span></label></li>
+    <li class="step" data-k="a6-7"><label><input type="checkbox"><span class="tx">往左上走 → 「濕地」→ 進入「纏盤蛛絲洞」:擊殺<em class="bs">傀儡女王瑞斯拉薩</em>(蟲女王) → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a6-8"><label><input type="checkbox"><span class="tx">回獅眼守望,和驚嘆號 NPC 回報任務(<b>回城拿天賦點</b>、順便換水)</span></label></li>
+    <li class="step" data-k="a6-9"><label><input type="checkbox"><span class="tx">傳送到「河道」順著道路走到底 → 「南方森林」→ 進入「忿怒山洞」:取得<em class="it">黑色旗幟</em></span></label></li>
+    <li class="step" data-k="a6-10"><label><input type="checkbox"><span class="tx">進入「絕望烽塔」:踩柱子<b>推到底</b>(取得工藝) → 點火後,把黑旗投進去</span></label></li>
+    <li class="step" data-k="a6-11"><label><input type="checkbox"><span class="tx">進入「海洋王的堡礁」→「海洋王座」:擊殺<em class="bs">海洋王</em> → 與威廉羅斯交談 → 第六章結束</span></label></li>
+  </ul>
+</section>
+
+<!-- ============ A7 ============ -->
+<section id="a7">
+  <h2>第七章 <small>橋墩營地</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a7-1"><label><input type="checkbox"><span class="tx">進入主城「橋墩營地」→ 「河畔斷橋」→「危機叉路」:找到傳送點</span></label></li>
+    <li class="step" data-k="a7-2"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉⑧</b>往右下走 → 「墮道遺跡」順著路走 → 「靜謐陵墓」:完成殘酷試煉⑧;取得工藝</span></label></li>
+    <li class="step" data-k="a7-3"><label><input type="checkbox"><span class="tx">進入「靜謐陵墓第二層」:取得<em class="it">馬雷葛蘿的地圖</em> → <span class="rl">登出重登</span>回營地</span></label></li>
+    <li class="step" data-k="a7-4"><label><input type="checkbox"><span class="tx">傳送到「危機叉路」往左上 → 「罪孽之殿第一層」:啟動<b>輿圖儀</b>,放入馬雷葛蘿的地圖後按啟動</span></label></li>
+    <li class="step" data-k="a7-5"><label><input type="checkbox"><span class="tx">進入「馬雷葛蘿的書房」→ 找到鬥技場門口<b>先開一個傳送門</b>(保險) → 進入「鬥技場」:擊殺<em class="bs">馬雷葛蘿</em>,取得<em class="it">黑色毒液</em></span></label></li>
+    <li class="step" data-k="a7-6"><label><input type="checkbox"><span class="tx">開傳送門回「罪孽之殿第一層」→ 和斯克說話,取得<em class="it">黑曜之鑰</em></span></label></li>
+    <li class="tip">一層中間有個壞掉的製圖儀,它正對出去的方向就是往二層的樓梯</li>
+    <li class="step" data-k="a7-7"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉⑨</b>進入「罪孽之殿第二層」:完成殘酷試煉⑨ → 用鑰匙打開<b>秘密通道</b> → 進入「獸穴」</span></label></li>
+    <li class="step" data-k="a7-8"><label><input type="checkbox"><span class="tx">「旱木原野」往左下走 → 進入「堡壘營地」:擊殺<em class="bs">古斯特</em>(千面神)</span></label></li>
+    <li class="step" data-k="a7-9"><label><input type="checkbox"><span class="tx">進入「北部密林」→ 「驚魂樹洞」→ 進入「絕望之巢」:擊殺<em class="bs">葛魯斯寇</em>(絕望之母) → 回「驚魂樹洞」抓 <b>7 隻螢火蟲</b> → <span class="rl">登出重登</span> → 回營地交任務</span></label></li>
+    <li class="step" data-k="a7-10"><label><input type="checkbox"><span class="tx"><b class="bd lab">迷宮 II</b>試煉⑦⑧⑨齊了,打第二次帝王迷宮(殘酷)。推薦:處刑者=<b>神話災難</b>/暴徒=戰吼獲得盛怒/勇士=移動速度不低於一般</span></label></li>
+    <li class="step" data-k="a7-11"><label><input type="checkbox"><span class="tx">傳送到「北部密林」往右上 → 「堤道」:取得工藝;取得<em class="it">奇夏拉之星</em></span></label></li>
+    <li class="step" data-k="a7-12"><label><input type="checkbox"><span class="tx">進入「瓦爾城市」:找到傳送點 → 「腐朽寺廟第一層」→「第二層」→ 進入「艾爾卡莉之網」:擊殺<em class="bs">艾爾卡莉</em> → 第七章結束</span></label></li>
+  </ul>
+</section>
+
+<!-- ============ A8 ============ -->
+<section id="a8">
+  <h2>第八章 <small>薩恩營地・下半</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a8-1"><label><input type="checkbox"><span class="tx">進入「薩恩城牆」→ 主城「薩恩營地」→ 往左走 → 「腐化渠道」→ 「德瑞的腐化池」:擊殺<em class="bs">卑鄙的德瑞</em></span></label></li>
+    <li class="step" data-k="a8-2"><label><input type="checkbox"><span class="tx">走「下水道迷宮出口」(取得工藝) → 往右走 → 「啟程碼頭」:<b>沿著地圖左邊牆壁走</b>,取得<em class="it">永恆的十字架</em></span></label></li>
+    <li class="tip">十字架的通道門口會有一個大拱門+橋,認這個地標</li>
+    <li class="step" data-k="a8-3"><label><input type="checkbox"><span class="tx">接著往右下 → 進入「甦醒奇點」:和卡爾麗莎對話 → 擊殺<em class="bs">托爾曼</em> → 回「啟程碼頭」</span></label></li>
+    <li class="step" data-k="a8-4"><label><input type="checkbox"><span class="tx">進入「糧儲關口」:<b>跟著有躺屍體的門口走</b> → 擊殺<em class="bs">古靈軍團</em> → 進入「皇家疆界」:找到傳送點</span></label></li>
+    <li class="step" data-k="a8-5"><label><input type="checkbox"><span class="tx">往左上走 → 「日耀神殿第一層」:找到傳送點 → 「第二層」:擊殺日耀神諭<em class="bs">諸神晨曦</em>,取得<em class="it">日耀之石</em>;取得工藝 → <span class="rl">登出重登</span> → 回營地和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="step" data-k="a8-6"><label><input type="checkbox"><span class="tx">傳送到「日耀神殿第一層」→ 「日曜廣場」往左下 → 「海港大橋」→ 「月影神廣場」:往左上踩傳送點</span></label></li>
+    <li class="step" data-k="a8-7"><label><input type="checkbox"><span class="tx">「月耀神殿第一層」踩傳送點 → 「第二層」:擊殺月影神諭<em class="bs">諸神黃昏</em>,取得<em class="it">月影之石</em>;取得工藝 → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a8-8"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉⑩</b>傳送到「月影神廣場」→ 進入「大浴場」:完成無情試煉⑩;取得工藝</span></label></li>
+    <li class="step" data-k="a8-9"><label><input type="checkbox"><span class="tx">往左走 → 「空中花園」→ 進入「恐懼之沼」:擊殺<em class="bs">恐懼的血兆伊果</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a8-10"><label><input type="checkbox"><span class="tx">傳送到「月影神廣場」往右下 → 「海港大橋」→ 進入「天壇」:擊殺<em class="bs">永恆嬋娟月影神</em>和<em class="bs">永恆白駒日耀神</em> → 進入「滲血水道」→ 第八章結束</span></label></li>
+  </ul>
+</section>
+
+<!-- ============ A9 ============ -->
+<section id="a9">
+  <h2>第九章 <small>統治者之殿・下半</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a9-1"><label><input type="checkbox"><span class="tx">進入主城「統治者之殿」往右上 → 「下沉地區」→ 「瓦斯堤里荒漠」:踩傳送點;取得工藝 → 找到<b>風化的保險箱</b>,拿<em class="it">風暴之刃</em></span></label></li>
+    <li class="step" data-k="a9-2"><label><input type="checkbox"><span class="tx">往左上 → 「山麓」:往右上踩傳送點 → 「沸騰湖泊」:往右上找到並擊殺<em class="bs">草莽巨蜥</em>,取得<em class="it">蜥毒</em>;取得工藝 → <span class="rl">登出重登</span> → 回城交任務,取得<em class="it">瓶中風暴</em></span></label></li>
+    <li class="step" data-k="a9-3"><label><input type="checkbox"><span class="tx">傳送到「瓦斯堤里荒漠」往右上 → 「幻景綠洲」→ 進入「沙瀑流坑」:擊殺<em class="bs">夏卡莉女神</em> → <span class="rl">登出重登</span> → 回城和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="step" data-k="a9-4"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉⑪</b>傳送到「山麓」往左上 → 「隧道遺跡」:踩傳送點;完成無情試煉⑪;取得工藝</span></label></li>
+    <li class="step" data-k="a9-5"><label><input type="checkbox"><span class="tx">進入「廢棄挖石廠」:踩傳送點 → 往右上 → 「颶風神殿」:擊殺<em class="bs">颶風女王卡洛翰</em>,取得<em class="it">絲克瑪之羽</em> → <span class="rl">登出重登</span> → 回城和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="step" data-k="a9-6"><label><input type="checkbox"><span class="tx">傳送到「廢棄挖石廠」往上 → 「煉油廠」:<b>跟著軌道走</b> → 殺死<em class="bs">艾達將軍</em>,取得<em class="it">查爾森之粉</em> → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a9-7"><label><input type="checkbox"><span class="tx">傳送到「廢棄挖石廠」→ 和<b>罪</b>交談 → 「獸穴之腹」→「腐敗之核」→ 進入「黑靈之核」</span></label></li>
+    <li class="step" data-k="a9-8"><label><input type="checkbox"><span class="tx">連殺<em class="bs">薛朗之靈</em>、<em class="bs">德瑞之靈</em>、<em class="bs">馬雷葛蘿之靈</em> → 和罪交談 → 擊殺<em class="bs">墮道三巨頭</em></span></label></li>
+    <li class="step" data-k="a9-9"><label><input type="checkbox"><span class="tx">和莉莉說話,傳送到奧瑞亞 → 第九章結束</span></label></li>
+  </ul>
+</section>
+
+<!-- ============ A10 ============ -->
+<section id="a10">
+  <h2>第十章 <small>奧瑞亞的碼頭</small><span class="chip"></span></h2>
+  <ul class="steps">
+    <li class="step" data-k="a10-1"><label><input type="checkbox"><span class="tx">進入主城「奧瑞亞的碼頭」→ 「大教堂屋頂」往左走 → 「聖堂屋頂」:擊殺<em class="bs">病疫死翼</em> → 和班恩說話</span></label></li>
+    <li class="step" data-k="a10-2"><label><input type="checkbox"><span class="tx">回「大教堂屋頂」→ 進入「摧殘大廣場」:<b>開一個傳送門</b> → 往左下 → 「鎮壓地帶」:踩傳送點 → 走傳點回碼頭,和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="step" data-k="a10-3"><label><input type="checkbox"><span class="tx"><b class="bd t">試煉⑫</b>走傳送門回「摧殘大廣場」往右上 → 找到傳送點 → 進入「葬骨禮堂」:取得工藝;完成無情試煉⑫ → <span class="rl">登出重登</span></span></label></li>
+    <li class="step" data-k="a10-4"><label><input type="checkbox"><span class="tx">傳送到「鎮壓地帶」:擊殺<em class="bs">范尼達</em>(會飛來飛去那隻,+天賦點) → <span class="rl">登出重登</span> → 回碼頭和驚嘆號 NPC 回報任務</span></label></li>
+    <li class="step" data-k="a10-5"><label><input type="checkbox"><span class="tx">傳送到「摧殘大廣場」往右上 → 「焚燒大教堂」→ 進入「褻瀆之室」:擊殺<em class="bs">復仇者伊爾莉斯</em>,取得<em class="it">純淨之杖</em>;取得工藝 → <b>走傳送點回城</b>,交任務(釋放善)</span></label></li>
+    <li class="tip">開荒表提醒:拿聖杖這段用傳送點回城,<b>不要登出</b></li>
+    <li class="step" data-k="a10-6"><label><input type="checkbox"><span class="tx">回「摧殘大廣場」和<b>善</b>對話 → 「陰屍河道」→ 「破沿血道」:取得工藝 → 和<b>罪</b>對話</span></label></li>
+    <li class="step" data-k="a10-7"><label><input type="checkbox"><span class="tx"><b class="bd lab">迷宮 III</b>試煉⑩⑪⑫齊了,打第三次帝王迷宮(無情)。推薦:處刑者=<b>偷取不中斷</b>/暴徒=盛怒/勇士=8% 元素承受為護甲</span></label></li>
+    <li class="step" data-k="a10-8"><label><input type="checkbox"><span class="tx">進入「祭壇」:擊殺<em class="bs">奇塔弗</em>(永久最大抗性 −30%) → 和罪交談,走他開的傳送門回碼頭 → 和驚嘆號 NPC 回報任務 → 與莉莉交談</span></label></li>
+    <li class="step" data-k="a10-9"><label><input type="checkbox"><span class="tx">進入「海岸」和基拉克交談 → 🎉 進入輿圖!打 <code>/played</code> 看用時、<code>/passives</code> 檢查任務天賦點(全章節共 24 點,缺了回去補)</span></label></li>
+  </ul>
+</section>
+
+<!-- ============ 天賦 ============ -->
+<section id="pob">
+  <h2>天賦/POB</h2>
+  <div class="pobchips">
+    <span>⚔ 決鬥者・處刑者(Slayer)</span>
+    <span>Lv85 規劃</span>
+    <span>天賦 117 點</span>
+    <span>盜賊:全殺(+1 點)</span>
+    <span>萬神殿:海王/圖克哈瑪</span>
+  </div>
+
+  <h3>技能組(POB)</h3>
+  <div class="tablebox"><table>
+    <tr><th>部位</th><th>連結</th></tr>
+    <tr><td>身體護甲(6L 主傷)</td><td><b style="color:var(--amber)">充能打擊</b> – 殘暴 – 近戰物理傷害 – 護體 – 三位一體 – 虛空震波<br><small style="color:var(--dim)">Static Strike – Ruthless – Melee Physical Damage – Fortify – Trinity – Void Shockwave</small></td></tr>
+    <tr><td>手套</td><td>灰燼之捷 + 擊中標記 + 血肉與石 + 盜獵者印記<br><small style="color:var(--dim)">Herald of Ash / Mark On Hit / Flesh and Stone / Poacher's Mark</small></td></tr>
+    <tr><td>鞋子</td><td>憎恨 + 血之憤怒 + 霜漣之瞬<br><small style="color:var(--dim)">Hatred / Blood Rage / Frostblink</small></td></tr>
+    <tr><td>武器一</td><td>突襲 + 生命汲取 + 回氣<br><small style="color:var(--dim)">Ambush / Lifetap / Second Wind</small></td></tr>
+    <tr><td>武器二</td><td>威嚇戰吼 + 衝鋒盾擊 + 快速攻擊<br><small style="color:var(--dim)">Intimidating Cry / Shield Charge / Faster Attacks</small></td></tr>
+    <tr><td>頭盔(兩組擇一)</td><td>受傷施放(CwDT)+ 熔岩之殼 或 受傷施放 + 鋼鐵之膚<br><small style="color:var(--dim)">CwDT + Molten Shell / CwDT + Steelskin</small></td></tr>
+  </table></div>
+
+  <a class="btnlink" href="https://www.pathofexile.com/passive-skill-tree/AAAABgQBcyT_ax59NV4TFE0B57xHFez8S2XwG_oYkWCMwL8vzD_8cL9kUpkrCLH-U6QZd-NhUoZgOlITTPjr9zJGtxjb9WGSffDEsoDvTkR3BIe-rSpjWf7qGE0SJvi8nzbo6Gasr-XPF-HiYbkd3CMOPE4yFHG-pwHc0291Tkd-y3rKkDJOyX908ZMPxfeXdMGjhNlX0MGC6vm9gb02pGYkukHcXSysn6mVqW6Yb6U1_3Ofy6aNlwhAoJUkDPc7tpLQJ5-PmRLhiZWHKYce1EQMcANdbYdLvJOjMHcviSXfUdohYHNnZkxYr2VNAAq-TiT_mPJwvwuryX8RlFfQ_Wv_cyYbiZUb4dREAOlth4nmk6N9_y-J" target="_blank" rel="noopener">🌳 開啟官方天賦樹頁面</a>
+
+  <details>
+    <summary>POB 匯入代碼(點開複製)</summary>
+    <p class="note">POB → Import/Export Build → Import from code 貼上。<br>備註:Jordan 原始代碼尾端在複製時損壞(只壞到 Calcs 顯示快取),已修復重打包並驗證可匯入;建置內容(天賦/技能/組態)不受影響。</p>
+    <textarea class="pob" id="pobcode" readonly>eNrtW1tz4sYSft78ChUP50kGje7KsZPCN7ADNgt4be-La5AGo0VIrCSw2VT-e76RBAiMsNizW5VUnVTFBTP9TV-mp7unhz3-_XXiCXMWRm7gn1RIVaoIzLcDx_WfTyp3_csjs_L7b78cd2g8uh2ezlyPz_z2y4fj5LPgsTnzTiqmVhFiGj6z-NNyKeUJS02pH49Y4LfplyBsBM5JpT9ip6Hrsz-wTEUYUN9x45PKRUgnblgRbI9G0Q2dsJPK-Yx5bhRXBBrZzHfO1jM9jy4YJx7RkNoxC1tciPosDtqBg_kh9SJWESbU9XuBPWZxIwxm05OKXBHmLntJifrdi4ucfK6_lG82DkZ0QivQ8cNxJ2HVi2ksRPhzUqnDVPSZnYPiGTzm1JthMSJZsilXVdUikqzoldpe8OksjOLvW6E3ZcxZgUCvKFYRbSdkF8Mhs2N3zs5CNz4bUd_OcVSrklGE3UUvVy1VVfch2jMvdqeeyzcnQ2lVXSuCNN_wsOQi2n4QU--801vrrmsWDKZpsmlIsrofF8QrnFREee_Go1MP5v0OLlfPvhuzPFAxFbWqEM2ULE1VlX1M34Jl3TKJXjV1Uzcsw9oH7gRuFPj_g2G-Q-izmefh9OaRuqFqalUmBtEtSy103y6LWDinsbspcuGenAWTAWLFxpYoiiEbiFOmZqqWUShkPWT0dpgegC513FnUZnHIorWdipBt6tOzIFq7TLEROWmHhYhP8QZCegfQY3aAkJaHaGZVJcUHP8dpN76QZcsdsvKUB2mTAQ6V5vv0uOiVpTt44e8TqIv4XY6yF8y8kpTxOnTKhlx8jr5uUMqFlOfsdR3BFWXPghuUUuGCV36cSwlkz4J5Sl0tFnAe8Hjwvm2SiHXR7KyPjCbJGpKYrKuapRXnwdEicm3qtemrO5lNkHX6dMzWDC1JkYvd9XkU-wh2RWBiIQoVoS_dkO0DmsVxz3MKgaYuFaZU5NMgKkTKhGjFAcb1m6jG6rY9Q1W1yOWTfeYZrpO3ImnKnrrF_pVTX_n2ClCcJzjlnR8m2SJX7-zjwCFdnF5eYg08VhqzZpNFgdwhkPYze2Z-xnFtLUOukn2oFmP2qAFbd2m8FhImrloWMc194X9NLal77cyJ83bem412mFlXywHeGqyqWbqE42hJkr43le02HhbYi9ptPKIQGE-zCqW-8Fn4vOiNXObllDTLkC9FPKPTEsjE-nl4qV3Y5LfLLqWgu41TXO7S0CmX49bn1dhHdqDoSTRP7pDnHLgCmEaVEGJqyjt3gRsWdzeARyoKqP1AYFYnd40jyCHvA1deW8pbAXizrSW2c06jfCpULG2_q6X0eS_bU6syXG6AcNjWpUsqvkAGX_j10TsMVg8nwWxdnBBD0vfHqxSQ18JQ30vm6fW5y5yZvVE9mMXGXd6FTz00BbaU2RMNljCI6nk7sYWbVI9jao_PA-e5tPESLgchNgXszaZTxGfuFmUX4FUKLmZurj41jPeJb3HO82Gx-O7Cq5ltBtr7xNsMpHeLtNJabCG2ORFpb321xUbXSlCXVma1nW0E0gnSa9LyQc9qLV11T8WJq3mpm3VCuHn7L44DwQuEH_H2XnQYNSrRtX8UihIy_9ui9Pob5KUYXPgOSlqchW0eallEns0S1HcniKhRdE5jKjjZLeYTDV20FGXsUkWIGA3tUQu7f0k9b4BQcFLJj_JvW0DCgXz941qSG_mnq8k0CGMB_c-4xegzl6HthkliZq98qkPDeLFseybgZARrR7HrJ90WxCLPqwi9UfBSd-Zcs34QeNGqV0qnU_RYN9boh4wJdBlZbC5Yojf_gj7tLELjtUmj0WUQTui67SvzxiufW6SeDB5_WqpBRNU0iPmX-KemKqokGkQx8EVH1tVEHXMavsmyakqiqkkS_2KauiIqFtFUfFMMA4SKpkgyvuEmo1uiIstaAjMlxRJlReF0miwT0TKSCQ2tLEWULdP4a6ONfOUk--OjEQzxEulkQ5VlrIjbgiirEmAasQwuNP4nliVqOpEhqIYBWZcsHRroGJBNcMYCuqhaiqqIREb3ViS6AkVSDWRNN7GyhcuXqEmWqYu4rkNnjUhYW5YkKCLpFkRA71cVFVWVJJFgNUlEqwtKqxbspaPrpeAvmsQiMYnEP2Nx8CeGqBiaREQdXCGGpkM4CAvpiKHJhohLnwUlTALp0DUDI0VSTFGz0HEWoSQYWZYBpImOIThLmo5JcBVViGeImmkqfHXgNcijiKqhmNwgioYd0VVVhBIEC2IHOB-uFpbTVALmiiRhfWJi30AgWRLsaoIBAS9Asg2yFK6EroKZhJanqJiGIUNxDTsDb4GJMtcAe1PUJcKlgCr8r4oRyAm7wk7QGU1TmF4xNSygEtgV_sYJYUxY10J3HeSyBdslvqdCJr4POhfB1HUVK6D5ic_E5DtALJGglapzI5uYlAh2WdENnXs0FE4dTlEhFP5qXMHEwRUCahNUqXcSSzFNMfViAgeDoRMftnQMyLzfKpqcrYxPsIiOuyB0NiTuPxb6NggbvDNFw0V904_xyIK2Jss9u8hm9o7Cp9Xk0H44vuu2kg8fRnE8jX6t1V5eXqpTPOoEQ_aKCq9qB5PaFCAc96No7HreEV-2Vsd_p88fT-1F_4m-atbNJ7V_eSGdasZr85J9M3vyw0vjKXgc35-1X1rm_Nv5k2m3rPHddByetZpHd_rHz87Rzegu-Px86131-50vofXtuhG_fhlY943ecHh-EQXn8_64q5xesaOwN_1yPzS-Ni6k3vXcNf1vg0Bv0Cg8euhcHjXdx8HYUc7at50LdXHZbBxNX5q2JFukP3aOFkr4x_j8-nbxYEnm53bndcgenHbjy-jGe5DajTN9PrGeB5I8bTyOZ-Om_dBbRL4--fT1Xn8c6HfkSbkdLnR6472M6sH13fi8YxvxtPXxWjvqTLqtkfv5vvnHo83Ixce2Xb9xBo9Oa359-6XdtOdu72F45wSjx-aN_3n8-hjKn27q9a9Hfbf_NOlcv8xfZuHiwex6l8OPT_fzJ3vxOHA_3w1Up3tRv_XikepPxvqN9bQ4uk42rLbcseP0DStKty_7lsQuvr_JKasIeECYpFGtloJqedQxrz5CF9EuTV01HsOTJMODPP9wE8QsoeWDyy_HPe4HkRAhxzTYJDpdoFy45PeZrc58liU4dY_Fae7LY04qcThjPNkNKZ6IMP5xRj2XJy3f9fLjrfQ50ec5Zdmww2JIW7ywTdfsL6Y8bNdbrXSmxZ7Rr-LMlvkrzVOZOILrLHNXNihEXgApGx4qrCh9J6yvNchkcn3kONjYz0qqbNijAy7gG9QZ9ewo0Zz5vP_kZDpnuwbpsglwHVBPXpokez8lZmVjnizn52ldwPe2ic6W59wO69EIinOmb0a_Ls2KqPCcegRePaiDEqV2BReJatxMtURifNrAbsot2MHMjzOlfTy7pjVAihCCocAxtbLava9ctr1tGo5vfXQucxq-nSqr5splcthSanJ64dYXOKK0ksb7Wl6iYBzVfacXBz7Lqbg1fuA2bqFLaZhgBPR7hRT1A7eyE1B7hHTEjZjTcXP4QBU3waU0zCD_odMg-m8kJMhVcOTLvo0Ip4GzEJbtizdhgfwTgwK_tLg2HoPccd6hdgzzO0Eiy8r0cjnbb65VyvYpRMgwtR-pb3qmu7N4xC9fb8PEeubgKLGGllJyRf4T9EuadZu9rh0RcRfR4bFx1yrloiRHCkuokGF_gjVwxYzd4eKtBVYTB2u9QpaLlhl1ad200rr18WMoSP5Wt9XEwbqtkKV0W1KX1U0urdqnwHXQcbDHL3S-w313TR8epFZaby1XSneOEdagd9LDPUMu8QXyY0vGhOb78kOJiqM-Gcw26sXlwKFZYIlbSZp1jnYbNqP-CeeFP-DEvJG67U6riYPPywpZymeW1D-yLsxkSX99cu_6zlv18nMHa5gHl0vgCUBIEOVOhfyPORUl8gp-muJOXNgLTwBnYT74vpk5sFB9gy9l7jxK4LAfmkSTJ8i0k533q43hA9XcBJdzqQQiZJifUSUkbef0zW1HYbg1fXjFkMOXLRsSiLDk-e7tI4ijf1NuaVK0CPOhajlwaBsig5XrQKTEP_C-ijfdwOluVti5sQOVySFL6ZPQC91DKme1RKMhxM8NB_iVbv4Gnh88tMWQg5Zz_TXgHbdvMm_C4n-K3-vv27YdeDHzeyPGX9RWxt0YPdC6G9hyBVYKEVLMj-_DnSFy3Y-Yn97psp8RbkfUnUQHx1W-yu3mGqU8jOOEF7DPLp5CCv5XeZv1_oZ8nLn2uDFLfq212oD84KGZO2bMw0J-WU9bA_7vZnvcLPuIB4fkYSV9OsE_nKpt_8upvwE7njN8</textarea>
+    <button class="copy" id="pobcopy" style="margin-top:8px">複製 POB 代碼</button>
+  </details>
+
+  <h3>參考影片</h3>
+  <ul class="steps">
+    <li class="tip" style="border-style:solid"><b>惡魔貓 — 我玩過最快的拓荒技能!充能打擊處刑者(3.29 亡焰咒海,12:54)</b><br>
+      <a href="https://www.youtube.com/watch?v=fG2KMdQu4OY&t=85s" target="_blank" rel="noopener">01:25 正片開始</a>・
+      <a href="https://www.youtube.com/watch?v=fG2KMdQu4OY&t=142s" target="_blank" rel="noopener">02:22 天賦點法</a>・
+      <a href="https://www.youtube.com/watch?v=fG2KMdQu4OY&t=245s" target="_blank" rel="noopener">04:05 充能打擊大改強</a>・
+      <a href="https://www.youtube.com/watch?v=fG2KMdQu4OY&t=360s" target="_blank" rel="noopener">06:00 隱藏科技</a>・
+      <a href="https://www.youtube.com/watch?v=fG2KMdQu4OY&t=510s" target="_blank" rel="noopener">08:30 單手錘/斧頭?</a>・
+      <a href="https://www.youtube.com/watch?v=fG2KMdQu4OY&t=660s" target="_blank" rel="noopener">11:00 震波旋風縫合</a><br>
+      <small style="color:var(--dim)">留言區補充:充能打擊沒有範圍攻擊,開血腥沙戮吃不到增傷但沙姿態也不扣傷;沙姿態 + 處刑者「衝擊」可以放大電擊範圍,刷圖效率變好。</small></li>
+    <li class="tip" style="border-style:solid">處刑者版:<a href="https://www.youtube.com/results?search_query=Static+Strike+Slayer+Fastest+Eater+Exarch+Run+3.28+Path+of+Exile" target="_blank" rel="noopener">Static Strike Slayer Fastest Eater Exarch Run | 3.28</a>(YouTube 搜尋)</li>
+    <li class="tip" style="border-style:solid">暴徒版:<a href="https://www.youtube.com/results?search_query=4+LINK+Eater%26Exarch+Static+Strike+Berserker+3.28+Path+of+Exile" target="_blank" rel="noopener">4 LINK Eater&amp;Exarch 4:26:04 Static Strike Berserker | 3.28</a>(YouTube 搜尋)</li>
+  </ul>
+</section>
+
+<!-- ============ 來源 ============ -->
+<footer id="src">
+  <b style="color:var(--gold)">資料來源</b>
+  <ol class="plain" style="margin-top:8px">
+    <li>路線主軸:傻眼速報(貓)|Moneko《POE超新手入門》<a href="https://vocus.cc/article/661f8484fd89780001c019b8" target="_blank" rel="noopener">Part.21 主線章節流程攻略筆記(上)</a>、<a href="https://vocus.cc/article/661fe9e9fd89780001c57149" target="_blank" rel="noopener">Part.22(下)</a>(3.25)</li>
+    <li>技能配置/洞色 Regex/昇華推薦:惡魔貓 <a href="https://docs.google.com/spreadsheets/d/15NcRi0lktoS_1u_Nmxcp_uJpi8aJP_wl1hXGpXuS_EQ/edit?gid=1185926559" target="_blank" rel="noopener">3.29 靈體投擲轉充能打擊 決鬥者/野蠻人 章節拓荒</a>(Google 試算表;11/03 比對過,內容與本頁一致)、<a href="https://www.youtube.com/watch?v=fG2KMdQu4OY" target="_blank" rel="noopener">影片版</a>、<a href="https://docs.google.com/spreadsheets/d/1puwsUHO7UGw_US1G_cM68tdYQ9mO5Evz4v5I3fEo1k8/edit?gid=586863159" target="_blank" rel="noopener">惡魔貓 POE 表格傳送門</a></li>
+    <li>3.30 時程:<a href="https://www.pathofexile.com/news" target="_blank" rel="noopener">pathofexile.com 官方公告</a>(11/02「Play Path of Exile: Covens of Umbra on November 13 PST」)</li>
+  </ol>
+  <p style="margin-top:10px">本頁為個人開荒筆記整理,內容彙整自上述公開攻略,著作權歸原作者所有。路線文章基於 3.25、技能表基於 3.29,實際以 3.30 patch note 為準(patch note 出來後會再覆核一次)。前一季版本:<a href="https://jordanliu1225.github.io/9dd-329/" target="_blank" rel="noopener">9DD 3.29 計畫</a>。</p>
+</footer>
+
+</div>
+<div class="toast" id="toast">已複製!</div>
+
+<script>
+(function(){
+  var KEY='9dd330-progress';
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){state={}}
+
+  var steps=document.querySelectorAll('li.step');
+
+  function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+
+  function refresh(){
+    var done=0;
+    steps.forEach(function(li){
+      var k=li.dataset.k, cb=li.querySelector('input');
+      var on=!!state[k];
+      cb.checked=on; li.classList.toggle('done',on);
+      if(on)done++;
+    });
+    var total=steps.length;
+    var pct=total?Math.round(done/total*100):0;
+    document.getElementById('pbar').style.width=pct+'%';
+    document.getElementById('ptext').textContent=done+' / '+total+'('+pct+'%)';
+    document.querySelectorAll('section').forEach(function(sec){
+      var chip=sec.querySelector('h2 .chip'); if(!chip)return;
+      var ss=sec.querySelectorAll('li.step'); if(!ss.length){chip.remove();return}
+      var d=0; ss.forEach(function(li){if(state[li.dataset.k])d++});
+      chip.textContent=d+' / '+ss.length;
+      chip.classList.toggle('full',d===ss.length);
+    });
+  }
+
+  steps.forEach(function(li){
+    li.querySelector('input').addEventListener('change',function(){
+      state[li.dataset.k]=this.checked?1:0;
+      if(!this.checked)delete state[li.dataset.k];
+      save();refresh();
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click',function(){
+    if(confirm('確定要清空所有進度嗎?')){state={};save();refresh();}
+  });
+
+  function showToast(){
+    var t=document.getElementById('toast');t.classList.add('show');
+    setTimeout(function(){t.classList.remove('show')},1200);
+  }
+  function copyText(txt){
+    (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(showToast,function(){
+      var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);
+      ta.select();document.execCommand('copy');ta.remove();showToast();
+    });
+  }
+  document.querySelectorAll('button.copy').forEach(function(btn){
+    if(btn.id==='pobcopy')return;
+    btn.addEventListener('click',function(){
+      copyText(btn.parentElement.querySelector('code').textContent);
+    });
+  });
+  document.getElementById('pobcopy').addEventListener('click',function(){
+    copyText(document.getElementById('pobcode').value.trim());
+  });
+
+  refresh();
+})();
+</script>
+</body>
+</html>
