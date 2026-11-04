@@ -97,6 +97,7 @@ a{color:var(--gold)}
 
 <nav class="top"><div class="in">
   <a href="#v330">3.30</a>
+  <a href="#intl">國際服工具</a>
   <a href="#prep">準備</a>
   <a href="#a1">A1</a><a href="#a2">A2</a><a href="#a3">A3</a><a href="#a4">A4</a><a href="#a5">A5</a>
   <a href="#a6">A6</a><a href="#a7">A7</a><a href="#a8">A8</a><a href="#a9">A9</a><a href="#a10">A10</a>
@@ -127,6 +128,54 @@ a{color:var(--gold)}
     </ol>
   </div>
   <p class="note">洞色 Regex、技能演進順序、靈投→充能的切換時機,這些跟版本無關,照 3.29 的表走就對了。</p>
+</section>
+
+<!-- ============ 國際服 ============ -->
+<section id="intl">
+  <h2>國際服:繁中化 + 必裝工具 <small>這季玩國際服,開服前一天先把這些裝好</small></h2>
+
+  <div class="box warn">
+    <b style="color:var(--amber)">先講風險</b>
+    <p class="note" style="margin-top:6px">國際服<b>沒有官方繁中</b>(2024 台服移轉時官方明講不會加),所有中文化都是改 <code>Content.ggpk</code> 的第三方工具。目前「純翻譯、不帶額外效益」的中文化官方呈默許狀態,沒有已知封鎖案例,但不保證以後不變;<b>開實況不要用</b>(Twitch 會警告)。Steam / Epic 版可以用,但步驟不同(見下)。</p>
+  </div>
+
+  <h3>① 遊戲繁中化(大部分人用流亡編年史的 PoeChinese3)</h3>
+  <div class="tablebox"><table>
+    <tr><th>步驟</th><th>做什麼</th></tr>
+    <tr><td>0</td><td>先到官方市集設定 <a href="https://www.pathofexile.com/trade/settings" target="_blank" rel="noopener">pathofexile.com/trade/settings</a>,把 <b>Whisper Language 設成 English</b>,不然賣家收到的密語是亂碼。</td></tr>
+    <tr><td>1</td><td>到 <a href="https://poedb.tw/tw/chinese" target="_blank" rel="noopener">流亡編年史 中文化頁</a>確認版本號跟遊戲一致(11/03 是 3.29.3.3;<b>3.30 開服後要等雕像大更新</b>,通常開服當天到隔天)。</td></tr>
+    <tr><td>2</td><td>從 <a href="https://github.com/aianlinb/LibGGPK3/releases" target="_blank" rel="noopener">LibGGPK3 Releases</a> 下載 <code>PoeChinese3_win-x64.exe</code>(不用 PIN)。另一個 <code>VPatchGGPK3</code> 要輸入頁面上的 4 碼 PIN、要裝 .NET Desktop Runtime 8,預翻譯比較多但會改比較多檔案,二選一。</td></tr>
+    <tr><td>3</td><td>關遊戲、關防毒。<b>官網獨立版</b>:把遊戲目錄的 <code>Content.ggpk</code> 拖到工具上;<b>Steam / Epic 版</b>:改拖 <code>Bundles2\_.index.bin</code>。等「成功」訊息後按 Enter。</td></tr>
+    <tr><td>4</td><td>開遊戲,登入畫面左上角國旗選<b>第二個(法國國旗)</b>,重開遊戲就是繁中。原理是把法文包入口換成中文包,所以遊戲內市集 / 商城會變法文,查價改用下面的工具。</td></tr>
+    <tr><td>更新後</td><td>每次遊戲更新(含小補丁)都要<b>重跑第 3~4 步</b>。選不到國旗或跳 <code>Failed to set language to "zh-TW"</code>:編輯遊戲目錄 <code>production_Config.ini</code>,把 <code>language=en</code> 改成 <code>language=fr</code>。</td></tr>
+  </table></div>
+  <p class="note">進階選項:巴哈版友「蒼」的 <a href="https://forum.gamer.com.tw/C.php?bsn=18966&snA=142102" target="_blank" rel="noopener">PoE 3.29 繁體中文翻譯修正補丁</a>(修正正負向翻錯 / 漏譯,同時支援台服 / 國際服,附中文市集懸浮窗),3.30 要等作者更新;工具沒買微軟簽章,下載會跳警告,不要放 C 槽執行。</p>
+
+  <h3>② 查價 / 交易(必裝)</h3>
+  <div class="tablebox"><table>
+    <tr><th>工具</th><th>用途</th><th>重點設定</th></tr>
+    <tr><td><a href="https://snosme.github.io/awakened-poe-trade/download" target="_blank" rel="noopener">Awakened PoE Trade</a>(APT)</td><td>遊戲內查價,國際服標配。<b>原版就支援繁中客戶端</b>。</td><td>遊戲中 <code>Shift+Space</code> 開設定 → 齒輪 → 語言選<b>繁體中文</b>、分流選<b>國際</b> → 重啟 APT。查價 <code>Alt+Ctrl+D</code>,複製進階詞綴 <code>Alt+Ctrl+C</code>。開季第一天清單空白就先把 APT 語言切回英文。黑屏:捷徑目標後加 <code>--disable-gpu</code>。</td></tr>
+    <tr><td><a href="https://github.com/Hsiung-Shao/exile-appraiser" target="_blank" rel="noopener">ExileAppraiser</a></td><td>APT 繁中修正版 + PoE2 查價合體,多了<b>拆粉排行</b>;舊的 Awakened PoE Trade-zh-TW 已停更併入這個。APT 查不到繁中詞綴時用它。</td><td>操作跟 APT 一樣;版本資訊在作者 <a href="https://discord.gg/6VamPQb8nC" target="_blank" rel="noopener">Discord</a>。</td></tr>
+    <tr><td><a href="https://github.com/Hsiung-Shao/poe-market-zh" target="_blank" rel="noopener">Poe Market Zh</a>(Chrome / Firefox 擴充)</td><td>官方市集 <a href="https://www.pathofexile.com/trade" target="_blank" rel="noopener">pathofexile.com/trade</a> 繁中化:篩選器、兩萬多條詞綴中英對照、中文搜尋、書籤側欄、從 POB 代碼一鍵建立各部位搜尋。</td><td>裝了就能用中文搜市集;poe.ninja / pobb.in 也會一起中文化。</td></tr>
+    <tr><td><a href="https://chromewebstore.google.com/detail/path-of-exile-trade-fuzzy/mkbkmkampdnnbehdldipgjhbablkmfba" target="_blank" rel="noopener">PoE Trade – Fuzzy Search</a></td><td>市集詞綴下拉改成模糊搜尋(惡魔貓表格推薦「超好用」)。</td><td>Chrome 擴充,裝完即用。</td></tr>
+    <tr><td><a href="https://poe.ninja/" target="_blank" rel="noopener">poe.ninja</a> + <a href="https://extscope.org/zh/extension/aidenhnleibhchnhilkpbpkgeanmeedh" target="_blank" rel="noopener">POE Ninja 繁體中文化</a>擴充</td><td>通貨 / 傳奇 / 聖甲蟲行情、流派統計。</td><td>開荒前查聖甲蟲、地圖價格都看這。</td></tr>
+    <tr><td><a href="https://xddbsns.com/mercenary-price-check.html" target="_blank" rel="noopener">傭兵查價</a></td><td>3.29 起傭兵能賣錢,抓到好傭兵先查。</td><td>惡魔貓表格推薦;3.30 傭兵若有改,等站方更新。</td></tr>
+    <tr><td><a href="https://forbiddentrove.com/" target="_blank" rel="noopener">TFT(The Forbidden Trove)Discord</a></td><td>大宗交易、賣服務、收整包地圖 / 通貨的主要管道。</td><td>需加入 Discord 並驗證帳號;英文介面。</td></tr>
+  </table></div>
+
+  <h3>③ 遊戲內 / 外協助工具</h3>
+  <div class="tablebox"><table>
+    <tr><th>工具</th><th>用途</th><th>備註</th></tr>
+    <tr><td><a href="https://pathofbuilding.community/" target="_blank" rel="noopener">Path of Building Community</a> + <a href="https://github.com/Hsiung-Shao/PobTools-zh/releases" target="_blank" rel="noopener">PobTools(POB 繁中化啟動器)</a></td><td>POB 繁中介面、遊戲內 Ctrl+C 中文裝備直接貼進 POB、內建圖譜配點器 / 軍團珠寶計算器 / 地圖 Regex / 過濾器編輯器。</td><td>把 POB 資料夾放到 <code>pob-zh.exe</code> 同層,雙擊啟動;<b>不要</b>解壓到舊的 PoeCharm3 資料夾。3.30 天賦樹要等 POB 更新才能匯本頁的代碼。</td></tr>
+    <tr><td><a href="https://www.filterblade.xyz/" target="_blank" rel="noopener">FilterBlade(NeverSink 過濾器)</a></td><td>掉落過濾,開荒 Soft 級、進圖後 Semi-Strict 以上。</td><td>可直接同步到帳號;中文版過濾器參考惡魔貓 / tytykiller 的 <a href="https://docs.google.com/spreadsheets/d/1iWTCpnhXe03ylsFzVbNl_xnsf2Xg_k41hYvlu7PKteg/edit?gid=1282890147" target="_blank" rel="noopener">過濾器表格</a>。</td></tr>
+    <tr><td><a href="https://github.com/Lailloken/Lailloken-UI" target="_blank" rel="noopener">Lailloken UI</a></td><td>遊戲內浮層:迷宮地圖、輿圖 / 聖甲蟲資訊、傭兵、角色面板等多合一。</td><td>AutoHotkey 製,開荒跑迷宮很省事;非官方工具自行評估。</td></tr>
+    <tr><td><a href="https://github.com/C1rdec/Poe-Lurker/releases" target="_blank" rel="noopener">PoE Lurker</a></td><td>交易密語管理:自動顯示來密語的人、一鍵邀請 / 交易 / 踢人,掛賣的時候不用一直看聊天。</td><td>國際服賣東西必備。</td></tr>
+    <tr><td><a href="https://github.com/ChaosRecipeEnhancer/EnhancePoEApp/releases" target="_blank" rel="noopener">Chaos Recipe Enhancer</a></td><td>前期混沌石配方:自動統計倉庫裡 60–74 等黃裝,湊滿提示。</td><td>開荒前兩天的主要混沌來源;需要 POESESSID 或 OAuth 授權。</td></tr>
+    <tr><td><a href="https://poe.re/" target="_blank" rel="noopener">poe.re</a></td><td>產生地圖 / 商店 / 聖甲蟲 Regex。</td><td>本頁準備區的洞色 Regex 也是這類用法。</td></tr>
+    <tr><td><a href="https://poedb.tw/tw/" target="_blank" rel="noopener">流亡編年史 poedb.tw</a>・<a href="https://www.craftofexile.com/" target="_blank" rel="noopener">Craft of Exile</a></td><td>物品 / 詞綴 / 機制查詢(繁中);製作機率模擬。</td><td>中文化檔也是從編年史下載。</td></tr>
+    <tr><td><a href="https://wealthyexile.com/" target="_blank" rel="noopener">Wealthy Exile</a></td><td>倉庫價值 / 每小時收益計算。</td><td>姊妹頁策略用它算收益;需授權帳號。</td></tr>
+  </table></div>
+  <p class="note">開服前一天建議順序:繁中化 → APT(設繁中 + 國際)→ Poe Market Zh → FilterBlade 同步 → PoE Lurker;POB / PobTools 等 3.30 版更新再裝。所有第三方工具都不是 GGG 認證,風險自負。</p>
 </section>
 
 <!-- ============ 準備 ============ -->
